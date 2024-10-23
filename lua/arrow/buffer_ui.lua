@@ -64,7 +64,7 @@ function M.spawn_preview_window(buffer, index, bookmark, bookmark_count)
 	local row = height + (index - 1) * (lines_count + 2) - (bookmark_count - 1) * lines_count
 
 	local width = math.ceil(vim.o.columns / 2)
-	
+
 	local zindex = config.getState("buffer_mark_zindex")
 
 	lastRow = row
@@ -94,6 +94,7 @@ function M.spawn_preview_window(buffer, index, bookmark, bookmark_count)
 	vim.api.nvim_win_set_cursor(win, { bookmark.line, 0 })
 	vim.api.nvim_win_set_config(win, { title = displayIndex .. " " .. extra_title })
 	vim.api.nvim_win_set_option(win, "number", true)
+	vim.wo.winbar = '' -- I use lualine winbar, and these preview windows don't need it
 
 	table.insert(preview_buffers, { buffer = buffer, win = win, index = index })
 
